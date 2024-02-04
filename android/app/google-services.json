@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "999085740593",
+    "project_id": "fancale-f4894",
+    "storage_bucket": "fancale-f4894.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999085740593:android:ee68bd945df0119caebb10",
+        "android_client_info": {
+          "package_name": "com.fancale.fancale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqen-yKhwsCO4TZHASAovTWwsEX7sWMzc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
