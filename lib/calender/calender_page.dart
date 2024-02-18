@@ -16,22 +16,7 @@ class CalenderPage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('カレンダー'),
-          actions: [
-            Consumer<Calender>(builder: (context, model, child) {
-              return IconButton(
-                  onPressed: () async {
-                    try {
-                      await showDialog<String>(
-                          context: context,
-                          builder: (context) =>
-                              AddClenderMemo(selectedDay: model.selectedDay));
-                    } catch (e) {
-                      print('エラー：$e');
-                    }
-                  },
-                  icon: const Icon(Icons.add));
-            })
-          ],
+          actions: const [AddButton()],
         ),
         body: Column(
           children: [
@@ -43,57 +28,96 @@ class CalenderPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Consumer<Calender>(builder: (context, model, child) {
-              return TableCalendar(
-                locale: 'ja_JP',
-                firstDay: DateTime.utc(1997, 8, 1),
-                lastDay: DateTime.utc(2030, 12, 31),
-                focusedDay: model.focusedDay,
-                calendarFormat: model.calendarFormat,
-                onFormatChanged: (format) {
-                  model.changeFormat(format);
-                },
-                selectedDayPredicate: (day) =>
-                    isSameDay(model.selectedDay, day),
-                onDaySelected: (selectedDay, focusedDay) {
-                  model.changedDay(selectedDay, focusedDay);
-                },
-              );
-            }),
-            Consumer<Calender>(builder: (context, model, child) {
-              final List<QueryDocumentSnapshot>? filteredDocuments =
-                  model.filteredDocuments;
-
-              if (filteredDocuments == null) {
-                return const CircularProgressIndicator();
-              }
-
-              return Expanded(
-                  child: ListView.builder(
-                      itemCount: filteredDocuments.length,
-                      itemBuilder: (context, index) {
-                        final document = filteredDocuments[index];
-                        final date = (document['date'] as Timestamp).toDate();
-                        return ListTile(
-                          trailing: IconButton(
-                            onPressed: () async {
-                              await FirebaseFirestore.instance
-                                  .collection('calendar')
-                                  .doc(document.id)
-                                  .delete();
-                              model.fetchCalender();
-                            },
-                            icon: const Icon(Icons.delete),
-                          ),
-                          title: Text(document['memo']),
-                          subtitle:
-                              Text('${date.year}/${date.month}/${date.day}'),
-                        );
-                      }));
-            })
+            const CalenderBody(),
+            const MemoArea()
           ],
         ),
       ),
     );
+  }
+}
+
+class AddButton extends StatelessWidget {
+  const AddButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<Calender>();
+
+    return IconButton(
+        onPressed: () async {
+          try {
+            await showDialog<String>(
+                context: context,
+                builder: (context) =>
+                    AddClenderMemo(selectedDay: model.selectedDay));
+          } catch (e) {
+            print('エラー：$e');
+          }
+        },
+        icon: const Icon(Icons.add));
+    ;
+  }
+}
+
+class CalenderBody extends StatelessWidget {
+  const CalenderBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<Calender>();
+
+    return TableCalendar(
+      locale: 'ja_JP',
+      firstDay: DateTime.utc(1997, 8, 1),
+      lastDay: DateTime.utc(2030, 12, 31),
+      focusedDay: model.focusedDay,
+      calendarFormat: model.calendarFormat,
+      onFormatChanged: (format) {
+        model.changeFormat(format);
+      },
+      selectedDayPredicate: (day) => isSameDay(model.selectedDay, day),
+      onDaySelected: (selectedDay, focusedDay) {
+        model.changedDay(selectedDay, focusedDay);
+      },
+    );
+  }
+}
+
+class MemoArea extends StatelessWidget {
+  const MemoArea({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<Calender>();
+
+    final List<QueryDocumentSnapshot>? filteredDocuments =
+        model.filteredDocuments;
+
+    if (filteredDocuments == null) {
+      return const CircularProgressIndicator();
+    }
+
+    return Expanded(
+        child: ListView.builder(
+            itemCount: filteredDocuments.length,
+            itemBuilder: (context, index) {
+              final document = filteredDocuments[index];
+              final date = (document['date'] as Timestamp).toDate();
+              return ListTile(
+                trailing: IconButton(
+                  onPressed: () async {
+                    await FirebaseFirestore.instance
+                        .collection('calendar')
+                        .doc(document.id)
+                        .delete();
+                    model.fetchCalender();
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+                title: Text(document['memo']),
+                subtitle: Text('${date.year}/${date.month}/${date.day}'),
+              );
+            }));
   }
 }
