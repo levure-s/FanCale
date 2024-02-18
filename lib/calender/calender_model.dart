@@ -17,7 +17,7 @@ class Calender extends ChangeNotifier {
       final List<QueryDocumentSnapshot> docs = snapshot.docs;
       documents = docs;
 
-      _filterDovuments();
+      _filterDocuments();
     });
   }
 
@@ -32,10 +32,10 @@ class Calender extends ChangeNotifier {
     focusedDay = focused;
     selectedDay = selected;
 
-    _filterDovuments();
+    _filterDocuments();
   }
 
-  void _filterDovuments() {
+  void _filterDocuments() {
     if (documents == null) {
       return notifyListeners();
     }
@@ -43,6 +43,7 @@ class Calender extends ChangeNotifier {
       final date = (doc['date'] as Timestamp).toDate();
       return isSameDay(selectedDay, date);
     }).toList();
+    filtered.sort((a, b) => a['date'].compareTo(b['date']));
 
     filteredDocuments = filtered;
     notifyListeners();
