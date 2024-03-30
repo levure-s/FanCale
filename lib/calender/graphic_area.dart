@@ -23,12 +23,8 @@ class GraphicArea extends StatelessWidget {
           },
           child: Consumer<Graphics>(builder: (context, model, child) {
             if (model.graphicURL == '') {
-              return SizedBox(
-                width: double.infinity,
-                height: 150,
-                child: Container(
-                  color: Colors.grey,
-                ),
+              return Container(
+                color: Colors.grey,
               );
             }
             return Image.network(
