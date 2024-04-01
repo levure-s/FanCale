@@ -1,8 +1,8 @@
-import 'package:fancale/calender/graphic_area.dart';
-import 'package:fancale/calender/memo_area.dart';
-import 'package:fancale/calender/add_button.dart';
-import 'package:fancale/calender/calender_body.dart';
-import 'package:fancale/calender/calender_model.dart';
+import 'package:fancale/calender/components/graphic_area.dart';
+import 'package:fancale/calender/components/memo_area.dart';
+import 'package:fancale/calender/components/add_button.dart';
+import 'package:fancale/calender/components/calender_body.dart';
+import 'package:fancale/calender/model/calender_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

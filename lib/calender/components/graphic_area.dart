@@ -1,4 +1,4 @@
-import 'package:fancale/calender/graphics_model.dart';
+import 'package:fancale/calender/model/graphics_model.dart';
 import 'package:fancale/edit_calender_graphics/edit_calender_graphics_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

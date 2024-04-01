@@ -1,4 +1,4 @@
-import 'package:fancale/calender/calender_model.dart';
+import 'package:fancale/calender/model/calender_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
