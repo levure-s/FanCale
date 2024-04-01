@@ -1,3 +1,4 @@
+import 'package:fancale/calender/components/graphic.dart';
 import 'package:fancale/calender/model/graphics_model.dart';
 import 'package:fancale/edit_calender_graphics/edit_calender_graphics_page.dart';
 import 'package:flutter/material.dart';
@@ -21,17 +22,7 @@ class GraphicArea extends StatelessWidget {
                     builder: (context) => const EditCalenderGraphics(),
                     fullscreenDialog: true));
           },
-          child: Consumer<Graphics>(builder: (context, model, child) {
-            if (model.graphicURL == '') {
-              return Container(
-                color: Colors.grey,
-              );
-            }
-            return Image.network(
-              model.graphicURL,
-              fit: BoxFit.cover,
-            );
-          }),
+          child: const Graphic(),
         ),
       ),
     );
