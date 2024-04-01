@@ -1,7 +1,5 @@
 import 'package:fancale/calender/model/graphics_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 
 class Graphic extends StatelessWidget {
