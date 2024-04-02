@@ -32,7 +32,7 @@ class EditCalenderGraphicsModel extends ChangeNotifier {
   Future saveImage() async {
     String? imgURL;
     if (imageFile == null) {
-      return;
+      throw '画像が選択されていません';
     }
 
     final doc = FirebaseFirestore.instance.collection('graphics').doc();

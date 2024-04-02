@@ -36,6 +36,15 @@ class SelectGraphicArea extends StatelessWidget {
                   try {
                     model.startLoading();
                     await model.saveImage();
+                    const snackBar = SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text('画像を変更しました'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } catch (e) {
+                    final snackBar = SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text(e.toString()));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } finally {
                     model.endLoading();
                   }
