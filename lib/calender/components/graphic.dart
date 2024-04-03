@@ -1,4 +1,5 @@
 import 'package:fancale/calender/model/graphics_model.dart';
+import 'package:fancale/edit_calender_graphics/edit_calender_graphics_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,14 +10,30 @@ class Graphic extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<Graphics>();
 
-    if (model.graphicURL == '') {
-      return Container(
-        color: Colors.grey,
-      );
-    }
-    return Image.network(
-      model.graphicURL,
-      fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () async {
+        final bool? isEdited = await Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const EditCalenderGraphics(),
+                fullscreenDialog: true));
+
+        if (isEdited != null && isEdited) {
+          const snackBar = SnackBar(
+              backgroundColor: Colors.green, content: Text('画像を変更しました'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+
+        model.fetchGraphics();
+      },
+      child: model.graphicURL == ''
+          ? Container(
+              color: Colors.grey,
+            )
+          : Image.network(
+              model.graphicURL,
+              fit: BoxFit.cover,
+            ),
     );
   }
 }

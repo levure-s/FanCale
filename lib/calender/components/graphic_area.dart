@@ -11,19 +11,10 @@ class GraphicArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => Graphics()..fetchGraphics(),
-      child: SizedBox(
+      child: const SizedBox(
         width: double.infinity,
         height: 150,
-        child: GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const EditCalenderGraphics(),
-                    fullscreenDialog: true));
-          },
-          child: const Graphic(),
-        ),
+        child: Graphic(),
       ),
     );
   }
