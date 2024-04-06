@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +12,17 @@ class RegisterModel extends ChangeNotifier {
 
   String? email;
   String? password;
-  final picker = ImagePicker();
+  bool isLoading = false;
+
+  void startLoading() {
+    isLoading = true;
+    notifyListeners();
+  }
+
+  void endLoading() {
+    isLoading = false;
+    notifyListeners();
+  }
 
   void setEmail(String email) {
     this.email = email;
@@ -26,5 +37,21 @@ class RegisterModel extends ChangeNotifier {
   Future signUp() async {
     email = titleController.text;
     password = autherController.text;
+
+    if (email == null || password == null) {
+      return;
+    }
+
+    final userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email!, password: password!);
+    final user = userCredential.user;
+
+    if (user == null) {
+      return;
+    }
+
+    final uid = user.uid;
+    final doc = FirebaseFirestore.instance.collection('users').doc(uid);
+    await doc.set({'uid': uid, 'email': email});
   }
 }
