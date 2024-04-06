@@ -40,6 +40,7 @@ class RegisterPage extends StatelessWidget {
                               onChanged: (text) {
                                 model.setPaaword(text);
                               },
+                              obscureText: true,
                             ),
                             const SizedBox(
                               height: 16,

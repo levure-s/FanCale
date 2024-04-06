@@ -4,6 +4,8 @@ import 'package:fancale/calender/components/add_button.dart';
 import 'package:fancale/calender/components/calender_body.dart';
 import 'package:fancale/calender/model/calender_model.dart';
 import 'package:fancale/login/login_page.dart';
+import 'package:fancale/mypage/my_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,11 +24,21 @@ class CalenderPage extends StatelessWidget {
             AddButton(),
             IconButton(
                 onPressed: () async {
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginPage(),
-                          fullscreenDialog: true));
+                  if (FirebaseAuth.instance.currentUser != null) {
+                    print('ログインしている');
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyPage(),
+                            fullscreenDialog: true));
+                  } else {
+                    print('ログインしていない');
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                            fullscreenDialog: true));
+                  }
                 },
                 icon: Icon(Icons.person))
           ],
