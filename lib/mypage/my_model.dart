@@ -20,6 +20,7 @@ class MyModel extends ChangeNotifier {
   }
 
   Future feachUser() async {
+    startLoading();
     final user = FirebaseAuth.instance.currentUser;
     email = user?.email;
 
@@ -29,6 +30,8 @@ class MyModel extends ChangeNotifier {
     final data = snapshot.data();
     name = data?['name'];
     description = data?['description'];
+
+    endLoading();
 
     notifyListeners();
   }
