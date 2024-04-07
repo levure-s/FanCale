@@ -25,22 +25,20 @@ class CalenderPage extends StatelessWidget {
             IconButton(
                 onPressed: () async {
                   if (FirebaseAuth.instance.currentUser != null) {
-                    print('ログインしている');
                     await Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MyPage(),
+                            builder: (context) => const MyPage(),
                             fullscreenDialog: true));
                   } else {
-                    print('ログインしていない');
                     await Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => LoginPage(),
+                            builder: (context) => const LoginPage(),
                             fullscreenDialog: true));
                   }
                 },
-                icon: Icon(Icons.person))
+                icon: const Icon(Icons.person))
           ],
         ),
         body: Column(

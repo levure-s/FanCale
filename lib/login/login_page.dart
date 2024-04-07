@@ -66,7 +66,8 @@ class LoginPage extends StatelessWidget {
                                   await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => RegisterPage(),
+                                          builder: (context) =>
+                                              const RegisterPage(),
                                           fullscreenDialog: true));
                                 },
                                 child: const Text('新規登録の方はこちら'))

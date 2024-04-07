@@ -24,7 +24,7 @@ class MyPage extends StatelessWidget {
                                   model.name ?? '', model.description ?? '')));
                       model.feachUser();
                     },
-                    icon: Icon(Icons.edit));
+                    icon: const Icon(Icons.edit));
               })
             ],
           ),
@@ -39,7 +39,7 @@ class MyPage extends StatelessWidget {
                         children: [
                           Text(
                             model.name ?? '名前なし',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           Text(model.email ?? 'メールアドレスなし'),
@@ -49,7 +49,7 @@ class MyPage extends StatelessWidget {
                                 await model.logout();
                                 Navigator.of(context).pop();
                               },
-                              child: Text('ログアウト'))
+                              child: const Text('ログアウト'))
                         ],
                       ),
                     ),
