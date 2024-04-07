@@ -31,7 +31,13 @@ class MyPage extends StatelessWidget {
                                 fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           Text(model.email ?? 'メールアドレスなし'),
-                          Text('自己紹介')
+                          Text('自己紹介'),
+                          TextButton(
+                              onPressed: () async {
+                                await model.logout();
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('ログアウト'))
                         ],
                       ),
                     ),

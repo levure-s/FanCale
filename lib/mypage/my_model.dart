@@ -26,4 +26,8 @@ class MyModel extends ChangeNotifier {
     email = user?.email;
     notifyListeners();
   }
+
+  Future logout() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }
