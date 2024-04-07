@@ -2,10 +2,8 @@ import 'package:fancale/calender/components/graphic_area.dart';
 import 'package:fancale/calender/components/memo_area.dart';
 import 'package:fancale/calender/components/add_button.dart';
 import 'package:fancale/calender/components/calender_body.dart';
+import 'package:fancale/calender/components/mypage_button.dart';
 import 'package:fancale/calender/model/calender_model.dart';
-import 'package:fancale/login/login_page.dart';
-import 'package:fancale/mypage/my_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,26 +18,7 @@ class CalenderPage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('カレンダー'),
-          actions: [
-            AddButton(),
-            IconButton(
-                onPressed: () async {
-                  if (FirebaseAuth.instance.currentUser != null) {
-                    await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MyPage(),
-                            fullscreenDialog: true));
-                  } else {
-                    await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
-                            fullscreenDialog: true));
-                  }
-                },
-                icon: const Icon(Icons.person))
-          ],
+          actions: const [AddButton(), MypageButton()],
         ),
         body: Column(
           children: const [GraphicArea(), CalenderBody(), MemoArea()],
