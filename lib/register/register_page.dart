@@ -1,5 +1,3 @@
-import 'package:fancale/edit_calender_graphics/edit_calender_graphics_model.dart';
-import 'package:fancale/edit_calender_graphics/select_graphic_area.dart';
 import 'package:fancale/register/register_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
