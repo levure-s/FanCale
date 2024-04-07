@@ -1,5 +1,6 @@
 import 'package:fancale/edit_calender_graphics/edit_calender_graphics_model.dart';
 import 'package:fancale/edit_calender_graphics/select_graphic_area.dart';
+import 'package:fancale/edit_profile/edit_profile_page.dart';
 import 'package:fancale/login/login_model.dart';
 import 'package:fancale/mypage/my_model.dart';
 import 'package:fancale/register/register_model.dart';
@@ -15,7 +16,23 @@ class MyPage extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (_) => MyModel()..feachUser(),
         child: Scaffold(
-          appBar: AppBar(title: const Text('マイページ')),
+          appBar: AppBar(
+            title: const Text('マイページ'),
+            actions: [
+              Consumer<MyModel>(builder: (context, model, child) {
+                return IconButton(
+                    onPressed: () async {
+                      await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditProfilePage(
+                                  model.name ?? '', model.description ?? '')));
+                      model.feachUser();
+                    },
+                    icon: Icon(Icons.edit));
+              })
+            ],
+          ),
           body: Center(
             child: Consumer<MyModel>(
               builder: (context, model, child) {
@@ -26,12 +43,12 @@ class MyPage extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            '名前',
+                            model.name ?? '名前なし',
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           Text(model.email ?? 'メールアドレスなし'),
-                          Text('自己紹介'),
+                          Text(model.description ?? '自己紹介なし'),
                           TextButton(
                               onPressed: () async {
                                 await model.logout();
