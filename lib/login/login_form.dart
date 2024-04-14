@@ -41,7 +41,6 @@ class LoginForm extends StatelessWidget {
                       model.startLoading();
                       try {
                         await model.login();
-                        Navigator.of(context).pop();
                       } catch (e) {
                         final snackBar = SnackBar(
                             backgroundColor: Colors.red,
