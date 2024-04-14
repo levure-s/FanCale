@@ -36,6 +36,14 @@ class Calender extends ChangeNotifier {
     _filterDocuments();
   }
 
+  void changePage(focused) {
+    if (focusedDay == focused) {
+      return;
+    }
+    focusedDay = focused;
+    notifyListeners();
+  }
+
   void _filterDocuments() {
     if (documents == null) {
       return notifyListeners();

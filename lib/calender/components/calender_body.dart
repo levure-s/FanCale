@@ -23,6 +23,9 @@ class CalenderBody extends StatelessWidget {
       onDaySelected: (selectedDay, focusedDay) {
         model.changedDay(selectedDay, focusedDay);
       },
+      onPageChanged: (focusedDay) {
+        model.changePage(focusedDay);
+      },
     );
   }
 }

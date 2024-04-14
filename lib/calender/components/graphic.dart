@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Graphic extends StatelessWidget {
-  const Graphic({super.key});
+  const Graphic({super.key, required this.month});
+  final int month;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,9 @@ class Graphic extends StatelessWidget {
         final bool? isEdited = await Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const EditCalenderGraphics(),
+                builder: (context) => EditCalenderGraphics(
+                      month: month,
+                    ),
                 fullscreenDialog: true));
 
         if (isEdited != null && isEdited) {

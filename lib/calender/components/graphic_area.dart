@@ -1,4 +1,5 @@
 import 'package:fancale/calender/components/graphic.dart';
+import 'package:fancale/calender/model/calender_model.dart';
 import 'package:fancale/calender/model/graphics_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,12 +9,16 @@ class GraphicArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final calender = context.watch<Calender>();
+    final month = calender.focusedDay.month;
     return ChangeNotifierProvider(
-      create: (_) => Graphics()..fetchGraphics(),
-      child: const SizedBox(
+      create: (_) => Graphics(month: month)..fetchGraphics(),
+      child: SizedBox(
         width: double.infinity,
         height: 150,
-        child: Graphic(),
+        child: Graphic(
+          month: month,
+        ),
       ),
     );
   }
