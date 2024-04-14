@@ -1,3 +1,4 @@
+import 'package:fancale/calender/calender_page.dart';
 import 'package:fancale/login/login_model.dart';
 import 'package:fancale/register/register_page.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,11 @@ class LoginForm extends StatelessWidget {
                       model.startLoading();
                       try {
                         await model.login();
-                        Navigator.of(context).pop();
+                        await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CalenderPage(),
+                                fullscreenDialog: true));
                       } catch (e) {
                         final snackBar = SnackBar(
                             backgroundColor: Colors.red,
