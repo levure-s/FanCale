@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AddClenderMemoModel extends ChangeNotifier {
@@ -9,9 +10,10 @@ class AddClenderMemoModel extends ChangeNotifier {
     if (text == null || text == '') {
       throw 'メモを入力してください';
     }
-    await FirebaseFirestore.instance
-        .collection('calendar')
-        .add({'date': Timestamp.fromDate(selectedDay!), 'memo': text});
+
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    await FirebaseFirestore.instance.collection('calendar').add(
+        {'date': Timestamp.fromDate(selectedDay!), 'memo': text, 'uid': uid});
     notifyListeners();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -39,9 +40,11 @@ class Calender extends ChangeNotifier {
     if (documents == null) {
       return notifyListeners();
     }
+    final currentUid = FirebaseAuth.instance.currentUser?.uid;
     final List<QueryDocumentSnapshot> filtered = documents!.where((doc) {
       final date = (doc['date'] as Timestamp).toDate();
-      return isSameDay(selectedDay, date);
+      final uid = doc['uid'];
+      return isSameDay(selectedDay, date) && currentUid == uid;
     }).toList();
     filtered.sort((a, b) => a['date'].compareTo(b['date']));
 
