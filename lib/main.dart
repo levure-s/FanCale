@@ -19,33 +19,35 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return MaterialApp(
-                title: 'Flutter Demo',
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                ),
-                home: const Center(
-                  child: CircularProgressIndicator(),
-                ));
-          }
-          if (snapshot.hasData) {
-            return MaterialApp(
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              home: const CalenderPage(),
-            );
-          }
-          return MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            home: const LoginPage(),
-          );
-        });
+        builder: (context, snapshot) => _builder(context, snapshot));
+  }
+
+  Widget _builder(BuildContext context, AsyncSnapshot<User?> snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const Center(
+            child: CircularProgressIndicator(),
+          ));
+    }
+    if (snapshot.hasData) {
+      return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const CalenderPage(),
+      );
+    }
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const LoginPage(),
+    );
   }
 }
