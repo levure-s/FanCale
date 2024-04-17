@@ -23,31 +23,21 @@ class MyApp extends StatelessWidget {
   }
 
   Widget _builder(BuildContext context, AsyncSnapshot<User?> snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: const Center(
-            child: CircularProgressIndicator(),
-          ));
-    }
-    if (snapshot.hasData) {
-      return MaterialApp(
+    return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const CalenderPage(),
-      );
-    }
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const LoginPage(),
+        home: snapshot.connectionState == ConnectionState.waiting
+            ? _circular()
+            : snapshot.hasData
+                ? const CalenderPage()
+                : const LoginPage());
+  }
+
+  Widget _circular() {
+    return const Center(
+      child: CircularProgressIndicator(),
     );
   }
 }
