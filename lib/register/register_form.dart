@@ -38,11 +38,13 @@ class RegisterFrom extends StatelessWidget {
                 ),
                 ElevatedButton(
                     onPressed: () async {
+                      bool isCreated = true;
+
                       model.startLoading();
 
                       try {
                         await model.signUp();
-                        Navigator.of(context).pop();
+                        isCreated = true;
                       } catch (e) {
                         final snackBar = SnackBar(
                             backgroundColor: Colors.red,
@@ -50,6 +52,9 @@ class RegisterFrom extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } finally {
                         model.endLoading();
+                        if (isCreated) {
+                          Navigator.of(context).pop();
+                        }
                       }
                     },
                     child: const Text('登録する'))

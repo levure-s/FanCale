@@ -33,10 +33,12 @@ class SelectGraphicArea extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () async {
+                  bool isSuccess = false;
+
                   try {
                     model.startLoading();
                     await model.saveImage();
-                    Navigator.of(context).pop(true);
+                    isSuccess = true;
                   } catch (e) {
                     final snackBar = SnackBar(
                         backgroundColor: Colors.red,
@@ -44,6 +46,9 @@ class SelectGraphicArea extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } finally {
                     model.endLoading();
+                    if (isSuccess) {
+                      Navigator.of(context).pop(true);
+                    }
                   }
                 },
                 child: const Text('保存する'))
