@@ -31,8 +31,9 @@ class AddClenderMemo extends StatelessWidget {
                         backgroundColor: Colors.red,
                         content: Text(e.toString()));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } finally {
+                    Navigator.pop(context);
                   }
-                  Navigator.pop(context);
                 },
                 child: const Text('OK'));
           })

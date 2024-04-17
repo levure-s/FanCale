@@ -9,6 +9,11 @@ class Graphic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<Graphics>();
+    void showSnackBar() {
+      const snackBar =
+          SnackBar(backgroundColor: Colors.green, content: Text('画像を変更しました'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
 
     return GestureDetector(
       onTap: () async {
@@ -19,9 +24,7 @@ class Graphic extends StatelessWidget {
                 fullscreenDialog: true));
 
         if (isEdited != null && isEdited) {
-          const snackBar = SnackBar(
-              backgroundColor: Colors.green, content: Text('画像を変更しました'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          showSnackBar();
         }
 
         model.fetchGraphics();

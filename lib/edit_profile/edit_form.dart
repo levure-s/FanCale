@@ -37,10 +37,12 @@ class EditForm extends StatelessWidget {
                 ),
                 ElevatedButton(
                     onPressed: () async {
+                      bool isUpdated = false;
+
                       model.startLoading();
                       try {
                         await model.update();
-                        Navigator.of(context).pop();
+                        isUpdated = true;
                       } catch (e) {
                         final snackBar = SnackBar(
                             backgroundColor: Colors.red,
@@ -48,6 +50,9 @@ class EditForm extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } finally {
                         model.endLoading();
+                        if (isUpdated) {
+                          Navigator.of(context).pop();
+                        }
                       }
                     },
                     child: const Text('更新する')),
