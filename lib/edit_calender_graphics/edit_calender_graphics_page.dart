@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditCalenderGraphics extends StatelessWidget {
-  const EditCalenderGraphics({super.key});
+  EditCalenderGraphics({super.key, required this.month});
+  int month;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (_) => EditCalenderGraphicsModel(),
         child: Scaffold(
-          appBar: AppBar(title: const Text('月ごとの画像を選択')),
-          body: const Center(child: SelectGraphicArea()),
+          appBar: AppBar(title: Text('$month月の画像を選択')),
+          body: Center(
+              child: SelectGraphicArea(
+            month: month,
+          )),
         ));
   }
 }

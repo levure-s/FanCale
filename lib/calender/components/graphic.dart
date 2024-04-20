@@ -20,7 +20,8 @@ class Graphic extends StatelessWidget {
         final bool? isEdited = await Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const EditCalenderGraphics(),
+                builder: (context) =>
+                    EditCalenderGraphics(month: model.currentMonth),
                 fullscreenDialog: true));
 
         if (isEdited != null && isEdited) {

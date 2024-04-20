@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SelectGraphicArea extends StatelessWidget {
-  const SelectGraphicArea({super.key});
+  SelectGraphicArea({super.key, required this.month});
+  int month;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class SelectGraphicArea extends StatelessWidget {
 
                   try {
                     model.startLoading();
-                    await model.saveImage();
+                    await model.saveImage(month);
                     isSuccess = true;
                   } catch (e) {
                     final snackBar = SnackBar(
