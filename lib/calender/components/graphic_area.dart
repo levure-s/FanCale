@@ -8,13 +8,10 @@ class GraphicArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => Graphics()..fetchGraphics(),
-      child: const SizedBox(
-        width: double.infinity,
-        height: 150,
-        child: Graphic(),
-      ),
+    return const SizedBox(
+      width: double.infinity,
+      height: 150,
+      child: Graphic(),
     );
   }
 }

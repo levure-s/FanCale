@@ -1,7 +1,10 @@
+import 'package:fancale/calender/components/calender_area.dart';
+import 'package:fancale/calender/components/graphic_area.dart';
+import 'package:fancale/calender/components/memo_area.dart';
 import 'package:fancale/calender/model/calender_model.dart';
+import 'package:fancale/calender/model/graphics_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class CalenderBody extends StatelessWidget {
   const CalenderBody({super.key});
@@ -9,20 +12,13 @@ class CalenderBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<Calender>();
+    final month = model.focusedDay.month;
 
-    return TableCalendar(
-      locale: 'ja_JP',
-      firstDay: DateTime.utc(1997, 8, 1),
-      lastDay: DateTime.utc(2030, 12, 31),
-      focusedDay: model.focusedDay,
-      calendarFormat: model.calendarFormat,
-      onFormatChanged: (format) {
-        model.changeFormat(format);
-      },
-      selectedDayPredicate: (day) => isSameDay(model.selectedDay, day),
-      onDaySelected: (selectedDay, focusedDay) {
-        model.changedDay(selectedDay, focusedDay);
-      },
+    return ChangeNotifierProvider(
+      create: (_) => Graphics(currentMonth: month)..fetchGraphics(),
+      child: Column(
+        children: const [GraphicArea(), CalenderArea(), MemoArea()],
+      ),
     );
   }
 }
