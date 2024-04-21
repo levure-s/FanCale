@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SelectGraphicArea extends StatelessWidget {
-  SelectGraphicArea({super.key, required this.month});
-  int month;
+  const SelectGraphicArea({super.key, required this.month});
+  final int month;
 
   @override
   Widget build(BuildContext context) {

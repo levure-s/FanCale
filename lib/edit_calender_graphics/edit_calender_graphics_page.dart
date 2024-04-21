@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditCalenderGraphics extends StatelessWidget {
-  EditCalenderGraphics({super.key, required this.month});
-  int month;
+  const EditCalenderGraphics({super.key, required this.month});
+  final int month;
 
   @override
   Widget build(BuildContext context) {
