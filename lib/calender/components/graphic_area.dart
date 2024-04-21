@@ -1,7 +1,5 @@
-import 'package:fancale/calender/components/graphic.dart';
-import 'package:fancale/calender/model/graphics_model.dart';
+import 'package:fancale/calender/components/graphic_section.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class GraphicArea extends StatelessWidget {
   const GraphicArea({super.key});
@@ -11,7 +9,7 @@ class GraphicArea extends StatelessWidget {
     return const SizedBox(
       width: double.infinity,
       height: 150,
-      child: Graphic(),
+      child: GraphicSection(),
     );
   }
 }

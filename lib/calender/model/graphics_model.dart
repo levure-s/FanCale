@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fancale/calender/model/graphic.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +9,8 @@ class Graphics extends ChangeNotifier {
       FirebaseFirestore.instance.collection('graphics').snapshots();
 
   List<QueryDocumentSnapshot>? documents;
-  String graphicURL = '';
   int currentMonth;
+  Graphic? currentGraphic;
 
   void fetchGraphics() {
     _snapshots.listen((QuerySnapshot snapshot) {
@@ -37,10 +38,13 @@ class Graphics extends ChangeNotifier {
       return currentMonth == month && currentUid == uid;
     }).toList();
     if (filtered.isEmpty) {
-      graphicURL = '';
+      currentGraphic = null;
       return notifyListeners();
     }
-    graphicURL = filtered.first['imgURL'];
+    currentGraphic = Graphic(
+        id: filtered.first.id,
+        imgURL: filtered.first['imgURL'],
+        month: currentMonth);
     notifyListeners();
   }
 }

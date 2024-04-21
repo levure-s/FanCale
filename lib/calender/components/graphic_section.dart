@@ -1,10 +1,11 @@
+import 'package:fancale/add_calender_graphics/add_calender_graphics_page.dart';
 import 'package:fancale/calender/model/graphics_model.dart';
 import 'package:fancale/edit_calender_graphics/edit_calender_graphics_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Graphic extends StatelessWidget {
-  const Graphic({super.key});
+class GraphicSection extends StatelessWidget {
+  const GraphicSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +21,11 @@ class Graphic extends StatelessWidget {
         final bool? isEdited = await Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    EditCalenderGraphics(month: model.currentMonth),
+                builder: (context) => model.currentGraphic != null
+                    ? EditCalenderGraphics(
+                        graphic: model.currentGraphic!,
+                      )
+                    : AddCalenderGraphics(month: model.currentMonth),
                 fullscreenDialog: true));
 
         if (isEdited != null && isEdited) {
@@ -30,12 +34,12 @@ class Graphic extends StatelessWidget {
 
         model.fetchGraphics();
       },
-      child: model.graphicURL == ''
+      child: model.currentGraphic == null
           ? Container(
               color: Colors.grey,
             )
           : Image.network(
-              model.graphicURL,
+              model.currentGraphic!.imgURL,
               fit: BoxFit.cover,
             ),
     );

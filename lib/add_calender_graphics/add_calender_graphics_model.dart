@@ -1,15 +1,12 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fancale/calender/model/graphic.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class EditCalenderGraphicsModel extends ChangeNotifier {
-  EditCalenderGraphicsModel({required this.graphic});
-  final Graphic graphic;
+class AddCalenderGraphicsModel extends ChangeNotifier {
   File? imageFile;
   bool isLoading = false;
   final picker = ImagePicker();
@@ -33,18 +30,17 @@ class EditCalenderGraphicsModel extends ChangeNotifier {
     }
   }
 
-  Future saveImage() async {
+  Future saveImage(int month) async {
     String? imgURL;
     if (imageFile == null) {
       throw '画像が選択されていません';
     }
     final uid = FirebaseAuth.instance.currentUser?.uid ?? '';
-    final doc =
-        FirebaseFirestore.instance.collection('graphics').doc(graphic.id);
+    final doc = FirebaseFirestore.instance.collection('graphics').doc();
     final task = await FirebaseStorage.instance
         .ref('graphics/${doc.id}')
         .putFile(imageFile!);
     imgURL = await task.ref.getDownloadURL();
-    await doc.update({'imgURL': imgURL, 'uid': uid, 'month': graphic.month});
+    await doc.set({'imgURL': imgURL, 'uid': uid, 'month': month});
   }
 }

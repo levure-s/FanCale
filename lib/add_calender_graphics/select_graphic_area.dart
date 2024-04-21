@@ -1,15 +1,15 @@
+import 'package:fancale/add_calender_graphics/add_calender_graphics_model.dart';
 import 'package:fancale/edit_calender_graphics/edit_calender_graphics_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SelectGraphicArea extends StatelessWidget {
-  const SelectGraphicArea({
-    super.key,
-  });
+  const SelectGraphicArea({super.key, required this.month});
+  final int month;
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<EditCalenderGraphicsModel>();
+    final model = context.watch<AddCalenderGraphicsModel>();
 
     return Stack(
       children: [
@@ -39,7 +39,7 @@ class SelectGraphicArea extends StatelessWidget {
 
                   try {
                     model.startLoading();
-                    await model.saveImage();
+                    await model.saveImage(month);
                     isSuccess = true;
                   } catch (e) {
                     final snackBar = SnackBar(
