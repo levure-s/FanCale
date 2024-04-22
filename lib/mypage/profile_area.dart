@@ -27,8 +27,15 @@ class ProfileArea extends StatelessWidget {
           Text(model.description ?? '自己紹介なし'),
           TextButton(
               onPressed: () async {
-                await model.logout();
-                Navigator.of(context).pop();
+                bool isSuccess = false;
+                try {
+                  await model.logout();
+                  isSuccess = true;
+                } finally {
+                  if (isSuccess) {
+                    Navigator.of(context).pop();
+                  }
+                }
               },
               child: const Text('ログアウト'))
         ],
