@@ -12,14 +12,10 @@ class AddButton extends StatelessWidget {
 
     return IconButton(
         onPressed: () async {
-          try {
-            await showDialog<String>(
-                context: context,
-                builder: (context) =>
-                    AddClenderMemo(selectedDay: model.selectedDay));
-          } catch (e) {
-            print('エラー：$e');
-          }
+          await showDialog<String>(
+              context: context,
+              builder: (context) =>
+                  AddClenderMemo(selectedDay: model.selectedDay));
         },
         icon: const Icon(Icons.add));
   }
