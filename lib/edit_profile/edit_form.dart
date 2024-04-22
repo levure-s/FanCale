@@ -66,6 +66,5 @@ class EditForm extends StatelessWidget {
               ))
       ],
     );
-    ;
   }
 }

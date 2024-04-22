@@ -40,6 +40,5 @@ class AddClenderMemo extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }
