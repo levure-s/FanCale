@@ -1,3 +1,4 @@
+import 'package:fancale/home/home_model.dart';
 import 'package:fancale/mypage/my_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,7 @@ class ProfileArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<MyModel>();
+    final home = context.watch<HomeModel>();
 
     if (model.isLoading) {
       return const Center(
@@ -29,12 +31,15 @@ class ProfileArea extends StatelessWidget {
               onPressed: () async {
                 bool isSuccess = false;
                 try {
-                  await model.logout();
                   isSuccess = true;
+                  home.readyForLogout();
+                  Navigator.of(context).pop();
+                  await model.logout();
+                  home.checkLoginInfo();
                 } finally {
-                  if (isSuccess) {
-                    Navigator.of(context).pop();
-                  }
+                  // if (isSuccess) {
+                  //   Navigator.of(context).pop();
+                  // }
                 }
               },
               child: const Text('ログアウト'))

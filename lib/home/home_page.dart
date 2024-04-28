@@ -16,6 +16,16 @@ class HomePage extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: model.isLogin ? const CalenderPage() : const LoginPage());
+        home: model.isWaitng
+            ? _circulasr()
+            : model.isLogin
+                ? const CalenderPage()
+                : const LoginPage());
+  }
+
+  Widget _circulasr() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }
