@@ -37,7 +37,7 @@ class LoginModel extends ChangeNotifier {
       return;
     }
 
-    FirebaseAuth.instance
+    await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email!, password: password!);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:fancale/home/home_model.dart';
 import 'package:fancale/login/login_model.dart';
 import 'package:fancale/register/register_page.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<LoginModel>();
+    final home = context.watch<HomeModel>();
+
     return Stack(
       children: [
         Padding(
@@ -41,6 +44,7 @@ class LoginForm extends StatelessWidget {
                       model.startLoading();
                       try {
                         await model.login();
+                        home.checkLoginInfo();
                       } catch (e) {
                         final snackBar = SnackBar(
                             backgroundColor: Colors.red,
