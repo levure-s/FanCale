@@ -5,19 +5,28 @@ import 'package:flutter/material.dart';
 
 class Graphics extends ChangeNotifier {
   Graphics({required this.currentMonth});
-  final Stream<QuerySnapshot> _snapshots =
-      FirebaseFirestore.instance.collection('graphics').snapshots();
 
   List<QueryDocumentSnapshot>? documents;
   int currentMonth;
   Graphic? currentGraphic;
 
   void fetchGraphics() {
-    _snapshots.listen((QuerySnapshot snapshot) {
+    final bool isEmpty = FirebaseAuth.instance.currentUser == null;
+    if (isEmpty) {
+      return;
+    }
+    final Stream<QuerySnapshot> snapshots =
+        FirebaseFirestore.instance.collection('graphics').snapshots();
+    snapshots.listen((QuerySnapshot snapshot) {
       final List<QueryDocumentSnapshot> docs = snapshot.docs;
       documents = docs;
       _filtereDocuments();
     });
+  }
+
+  void readyForLogout() {
+    documents = null;
+    notifyListeners();
   }
 
   void changeCurrentMonth(int month) {
@@ -28,7 +37,9 @@ class Graphics extends ChangeNotifier {
   }
 
   void _filtereDocuments() {
+    print('filter');
     if (documents == null) {
+      print('null');
       return notifyListeners();
     }
     final currentUid = FirebaseAuth.instance.currentUser?.uid;
@@ -39,12 +50,14 @@ class Graphics extends ChangeNotifier {
     }).toList();
     if (filtered.isEmpty) {
       currentGraphic = null;
+      print('empty');
       return notifyListeners();
     }
     currentGraphic = Graphic(
         id: filtered.first.id,
         imgURL: filtered.first['imgURL'],
         month: currentMonth);
+    print(currentGraphic);
     notifyListeners();
   }
 }

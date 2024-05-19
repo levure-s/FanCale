@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Calender extends ChangeNotifier {
-  final Stream<QuerySnapshot> _snapshots =
-      FirebaseFirestore.instance.collection('calendar').snapshots();
-
   CalendarFormat calendarFormat = CalendarFormat.month;
   DateTime focusedDay = DateTime.now();
   DateTime? selectedDay;
@@ -14,12 +11,25 @@ class Calender extends ChangeNotifier {
   List<QueryDocumentSnapshot>? filteredDocuments;
 
   void fetchCalender() {
-    _snapshots.listen((QuerySnapshot snapshot) {
+    final bool isEmpty = FirebaseAuth.instance.currentUser == null;
+    if (isEmpty) {
+      return;
+    }
+
+    final Stream<QuerySnapshot> snapshots =
+        FirebaseFirestore.instance.collection('calendar').snapshots();
+
+    snapshots.listen((QuerySnapshot snapshot) {
       final List<QueryDocumentSnapshot> docs = snapshot.docs;
       documents = docs;
 
       _filterDocuments();
     });
+  }
+
+  void readyForLogout() {
+    documents = null;
+    notifyListeners();
   }
 
   void changeFormat(format) {

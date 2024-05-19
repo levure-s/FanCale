@@ -34,8 +34,6 @@ class ProfileArea extends StatelessWidget {
                   isSuccess = true;
                   home.readyForLogout();
                   Navigator.of(context).pop();
-                  await model.logout();
-                  home.checkLoginInfo();
                 } finally {
                   // if (isSuccess) {
                   //   Navigator.of(context).pop();
