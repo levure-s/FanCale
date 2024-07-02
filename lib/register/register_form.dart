@@ -27,7 +27,7 @@ class RegisterFrom extends StatelessWidget {
                 ),
                 TextField(
                   controller: model.autherController,
-                  decoration: const InputDecoration(hintText: 'パスワード'),
+                  decoration: const InputDecoration(hintText: 'パスワード(6文字以上)'),
                   onChanged: (text) {
                     model.setPaaword(text);
                   },
