@@ -16,7 +16,7 @@ class RegisterForm extends StatelessWidget {
             child: Column(
               children: [
                 TextField(
-                  controller: model.titleController,
+                  controller: model.emailController,
                   decoration: const InputDecoration(hintText: 'Email'),
                   onChanged: (text) {
                     model.setEmail(text);
@@ -26,7 +26,7 @@ class RegisterForm extends StatelessWidget {
                   height: 8,
                 ),
                 TextField(
-                  controller: model.autherController,
+                  controller: model.passwordController,
                   decoration: const InputDecoration(hintText: 'パスワード(6文字以上)'),
                   onChanged: (text) {
                     model.setPaaword(text);
@@ -38,7 +38,7 @@ class RegisterForm extends StatelessWidget {
                 ),
                 ElevatedButton(
                     onPressed: () async {
-                      bool isCreated = true;
+                      bool isCreated = false;
 
                       model.startLoading();
 
