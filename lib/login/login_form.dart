@@ -1,3 +1,4 @@
+import 'package:fancale/fargot_password/fargot_password_page.dart';
 import 'package:fancale/home/home_model.dart';
 import 'package:fancale/login/login_model.dart';
 import 'package:fancale/register/register_page.dart';
@@ -55,6 +56,9 @@ class LoginForm extends StatelessWidget {
                       }
                     },
                     child: const Text('ログイン')),
+                const SizedBox(
+                  height: 16,
+                ),
                 TextButton(
                     onPressed: () async {
                       await Navigator.push(
@@ -63,7 +67,16 @@ class LoginForm extends StatelessWidget {
                               builder: (context) => const RegisterPage(),
                               fullscreenDialog: true));
                     },
-                    child: const Text('新規登録の方はこちら'))
+                    child: const Text('新規登録の方はこちら')),
+                TextButton(
+                    onPressed: () async {
+                      await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FargotPasswordPage(),
+                              fullscreenDialog: true));
+                    },
+                    child: const Text('パスワードを忘れた'))
               ],
             )),
         if (model.isLoading)
