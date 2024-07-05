@@ -27,7 +27,7 @@ class FargotPasswordForm extends StatelessWidget {
                 ),
                 ElevatedButton(
                     onPressed: () async {
-                      bool isSuccess = true;
+                      bool isSuccess = false;
 
                       model.startLoading();
 
