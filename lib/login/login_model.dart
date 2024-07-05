@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginModel extends ChangeNotifier {
-  final titleController = TextEditingController();
-  final autherController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   String? email;
   String? password;
@@ -30,11 +30,14 @@ class LoginModel extends ChangeNotifier {
   }
 
   Future login() async {
-    email = titleController.text;
-    password = autherController.text;
+    email = emailController.text;
+    password = passwordController.text;
 
-    if (email == null || password == null) {
-      return;
+    if (email == null || email == '') {
+      throw ('メールアドレスを入力してください');
+    }
+    if (password == null || password == '') {
+      throw ('パスワードを入力してください');
     }
 
     await FirebaseAuth.instance

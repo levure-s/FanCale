@@ -20,7 +20,7 @@ class LoginForm extends StatelessWidget {
             child: Column(
               children: [
                 TextField(
-                  controller: model.titleController,
+                  controller: model.emailController,
                   decoration: const InputDecoration(hintText: 'Email'),
                   onChanged: (text) {
                     model.setEmail(text);
@@ -30,7 +30,7 @@ class LoginForm extends StatelessWidget {
                   height: 8,
                 ),
                 TextField(
-                  controller: model.autherController,
+                  controller: model.passwordController,
                   decoration: const InputDecoration(hintText: 'パスワード'),
                   onChanged: (text) {
                     model.setPaaword(text);
