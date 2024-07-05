@@ -2,8 +2,8 @@ import 'package:fancale/register/register_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class RegisterFrom extends StatelessWidget {
-  const RegisterFrom({super.key});
+class RegisterForm extends StatelessWidget {
+  const RegisterForm({super.key});
 
   @override
   Widget build(BuildContext context) {

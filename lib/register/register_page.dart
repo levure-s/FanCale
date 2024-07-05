@@ -13,7 +13,7 @@ class RegisterPage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(title: const Text('新規登録')),
           body: const Center(
-            child: RegisterFrom(),
+            child: RegisterForm(),
           ),
         ));
   }
