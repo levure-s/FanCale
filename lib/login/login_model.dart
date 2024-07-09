@@ -29,6 +29,19 @@ class LoginModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String convertErrorMessage(String msg) {
+    if (msg.contains('[firebase_auth/invalid-email]')) {
+      return 'メールアドレスを正しい形式で入力してください';
+    }
+    if (msg.contains('[firebase_auth/user-not-found]')) {
+      return '登録されていないメールアドレスが入力されています';
+    }
+    if (msg.contains('[firebase_auth/wrong-password]')) {
+      return 'メールアドレスまたはパスワードが違います';
+    }
+    return msg;
+  }
+
   Future login() async {
     email = emailController.text;
     password = passwordController.text;
