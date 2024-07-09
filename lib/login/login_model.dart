@@ -34,9 +34,9 @@ class LoginModel extends ChangeNotifier {
       return 'メールアドレスを正しい形式で入力してください';
     }
     if (msg.contains('[firebase_auth/user-not-found]')) {
-      return '登録されていないメールアドレスが入力されています';
+      return 'ユーザーが見つかりませんでした';
     }
-    if (msg.contains('[firebase_auth/wrong-password]')) {
+    if (msg.contains('[firebase_auth/invalid-credential]')) {
       return 'メールアドレスまたはパスワードが違います';
     }
     return msg;
