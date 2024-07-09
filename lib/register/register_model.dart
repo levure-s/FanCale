@@ -30,6 +30,19 @@ class RegisterModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String convertErrorMessage(String msg) {
+    if (msg.contains('[firebase_auth/invalid-email]')) {
+      return 'メールアドレスを正しい形式で入力してください';
+    }
+    if (msg.contains('[firebase_auth/email-already-in-use]')) {
+      return '登録済みのメールアドレスです';
+    }
+    if (msg.contains('[firebase_auth/weak-password]')) {
+      return 'パスワードは6文字以上入力してください';
+    }
+    return msg;
+  }
+
   Future signUp() async {
     email = emailController.text;
     password = passwordController.text;

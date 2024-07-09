@@ -46,9 +46,9 @@ class RegisterForm extends StatelessWidget {
                         await model.signUp();
                         isCreated = true;
                       } catch (e) {
+                        final msg = model.convertErrorMessage(e.toString());
                         final snackBar = SnackBar(
-                            backgroundColor: Colors.red,
-                            content: Text(e.toString()));
+                            backgroundColor: Colors.red, content: Text(msg));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } finally {
                         model.endLoading();
