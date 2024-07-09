@@ -22,6 +22,13 @@ class FargotPasswordModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String convertErrorMessage(String msg) {
+    if (msg.contains('[firebase_auth/invalid-email]')) {
+      return 'メールアドレスを正しい形式で入力してください';
+    }
+    return msg;
+  }
+
   Future sendEmail() async {
     email = emailController.text;
 
