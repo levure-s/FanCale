@@ -15,6 +15,7 @@ class EditProfileModel extends ChangeNotifier {
   String? name;
   String? description;
   bool isLoading = false;
+  Color color = Colors.blue;
 
   void startLoading() {
     isLoading = true;
@@ -36,6 +37,11 @@ class EditProfileModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setColor(Color color) {
+    this.color = color;
+    notifyListeners();
+  }
+
   bool isUpdated() {
     return name != null || description != null;
   }
@@ -43,11 +49,12 @@ class EditProfileModel extends ChangeNotifier {
   Future update() async {
     name = nameController.text;
     description = descriptionController.text;
+    int colorInt = color.value;
 
     final uid = FirebaseAuth.instance.currentUser?.uid;
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
-        .update({'name': name, 'description': description});
+        .update({'name': name, 'description': description, 'color': colorInt});
   }
 }
