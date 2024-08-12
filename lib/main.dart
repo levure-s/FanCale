@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => HomeModel()..checkLoginInfo(),
+      create: (_) => HomeModel()..initialize(),
       child: const HomePage(),
     );
   }
