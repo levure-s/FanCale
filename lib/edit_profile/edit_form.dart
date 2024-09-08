@@ -1,4 +1,5 @@
 import 'package:fancale/edit_profile/edit_profile_model.dart';
+import 'package:fancale/home/home_model.dart';
 import 'package:fast_color_picker/fast_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ class EditForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<EditProfileModel>();
+    final home = context.watch<HomeModel>();
 
     return Stack(
       children: [
@@ -35,6 +37,7 @@ class EditForm extends StatelessWidget {
                       selectedColor: model.color,
                       onColorSelected: (color) {
                         model.setColor(color);
+                        home.setColor(color);
                       }),
                 ),
                 const SizedBox(
@@ -56,6 +59,7 @@ class EditForm extends StatelessWidget {
                       } finally {
                         model.endLoading();
                         if (isUpdated) {
+                          home.featchColor();
                           Navigator.of(context).pop();
                         }
                       }

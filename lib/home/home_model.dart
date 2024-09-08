@@ -16,14 +16,19 @@ class HomeModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _initializeColor() {
+  void initializeColor() {
     color = Colors.blue;
+    notifyListeners();
+  }
+
+  void setColor(Color newcolor) {
+    color = _createMaterialColor(newcolor);
     notifyListeners();
   }
 
   Future featchColor() async {
     if (FirebaseAuth.instance.currentUser == null) {
-      _initializeColor();
+      initializeColor();
       return;
     }
 
@@ -33,7 +38,7 @@ class HomeModel extends ChangeNotifier {
     final data = snapshot.data();
 
     if (data == null || data['color'] == null) {
-      _initializeColor();
+      initializeColor();
       return;
     }
 
