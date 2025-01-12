@@ -17,7 +17,13 @@ class CalenderBody extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => Graphics(currentMonth: month)..fetchGraphics(),
       child: Column(
-        children: const [GraphicArea(), CalenderArea(), MemoArea()],
+        children: const [
+          GraphicArea(
+            isTablet: false,
+          ),
+          CalenderArea(),
+          MemoArea()
+        ],
       ),
     );
   }
