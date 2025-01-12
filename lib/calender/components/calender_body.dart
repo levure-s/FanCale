@@ -13,12 +13,33 @@ class CalenderBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<Calender>();
     final month = model.focusedDay.month;
+    final bool isTablet = MediaQuery.of(context).size.width >= 600;
 
     return ChangeNotifierProvider(
       create: (_) => Graphics(currentMonth: month)..fetchGraphics(),
-      child: Column(
-        children: const [GraphicArea(), CalenderArea(), MemoArea()],
-      ),
+      child: isTablet
+          ? Row(
+              children: [
+                Expanded(
+                  child: GraphicArea(
+                    isTablet: isTablet,
+                  ),
+                ),
+                Expanded(
+                    child: Column(
+                  children: const [CalenderArea(), MemoArea()],
+                ))
+              ],
+            )
+          : Column(
+              children: [
+                GraphicArea(
+                  isTablet: isTablet,
+                ),
+                const CalenderArea(),
+                const MemoArea()
+              ],
+            ),
     );
   }
 }

@@ -44,6 +44,7 @@ dependencies:
   firebase_auth: ^4.16.0
   flutter_launcher_icons: ^0.13.1
   fast_color_picker: ^0.1.1
+  recaptcha_enterprise_flutter: ^18.6.1
 
 dev_dependencies:
   flutter_test:
