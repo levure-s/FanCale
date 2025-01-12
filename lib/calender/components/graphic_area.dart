@@ -7,10 +7,10 @@ class GraphicArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return SizedBox(
       width: double.infinity,
-      height: 150,
-      child: GraphicSection(),
+      height: isTablet ? double.infinity : 150,
+      child: const GraphicSection(),
     );
   }
 }
