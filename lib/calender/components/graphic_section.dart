@@ -41,6 +41,8 @@ class GraphicSection extends StatelessWidget {
           : Image.network(
               model.currentGraphic!.imgURL,
               fit: BoxFit.cover,
+              alignment: Alignment(model.currentGraphic!.alignmentX,
+                  model.currentGraphic!.alignmentY),
             ),
     );
   }
