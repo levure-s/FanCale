@@ -9,51 +9,25 @@ class SelectGraphicArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AddCalenderGraphicsModel>();
+    final isTablet = MediaQuery.of(context).size.width >= 600;
 
     return Stack(
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(children: [
-            GestureDetector(
-              child: SizedBox(
-                width: double.infinity,
-                height: 150,
-                child: model.imageFile != null
-                    ? Image.file(
-                        model.imageFile!,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        color: Colors.grey,
-                      ),
-              ),
-              onTap: () async {
-                await model.pickImage();
-              },
-            ),
-            ElevatedButton(
-                onPressed: () async {
-                  bool isSuccess = false;
-
-                  try {
-                    model.startLoading();
-                    await model.saveImage(month);
-                    isSuccess = true;
-                  } catch (e) {
-                    final snackBar = SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text(e.toString()));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  } finally {
-                    model.endLoading();
-                    if (isSuccess) {
-                      Navigator.of(context).pop(true);
-                    }
-                  }
-                },
-                child: const Text('保存する'))
-          ]),
+          child: isTablet
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        child: _buildImageSection(context, model, isTablet)),
+                    Expanded(child: _buildSaveButton(context, model, month))
+                  ],
+                )
+              : Column(children: [
+                  _buildImageSection(context, model, isTablet),
+                  _buildSaveButton(context, model, month)
+                ]),
         ),
         if (model.isLoading)
           Container(
@@ -62,6 +36,57 @@ class SelectGraphicArea extends StatelessWidget {
                 child: CircularProgressIndicator(),
               ))
       ],
+    );
+  }
+
+  Widget _buildImageSection(
+      BuildContext context, AddCalenderGraphicsModel model, bool isTablet) {
+    return GestureDetector(
+      child: SizedBox(
+        width: double.infinity,
+        height: isTablet ? double.infinity : 150,
+        child: model.imageFile != null
+            ? Image.file(
+                model.imageFile!,
+                fit: BoxFit.cover,
+              )
+            : Container(
+                color: Colors.grey,
+              ),
+      ),
+      onTap: () async {
+        await model.pickImage();
+      },
+    );
+  }
+
+  Widget _buildSaveButton(
+      BuildContext context, AddCalenderGraphicsModel model, int month) {
+    return Center(
+      child: SizedBox(
+        width: 150,
+        child: ElevatedButton(
+          onPressed: () async {
+            bool isSuccess = false;
+
+            try {
+              model.startLoading();
+              await model.saveImage(month);
+              isSuccess = true;
+            } catch (e) {
+              final snackBar = SnackBar(
+                  backgroundColor: Colors.red, content: Text(e.toString()));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } finally {
+              model.endLoading();
+              if (isSuccess) {
+                Navigator.of(context).pop(true);
+              }
+            }
+          },
+          child: const Text('保存する'),
+        ),
+      ),
     );
   }
 }
