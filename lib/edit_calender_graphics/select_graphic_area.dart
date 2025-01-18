@@ -22,7 +22,14 @@ class SelectGraphicArea extends StatelessWidget {
                   children: [
                     Expanded(
                         child: _buildImageSection(context, model, isTablet)),
-                    Expanded(child: _buildSaveButton(context, model))
+                    Expanded(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildSlider(model, isTablet),
+                        _buildSaveButton(context, model),
+                      ],
+                    ))
                   ],
                 )
               : Column(children: [
@@ -72,9 +79,12 @@ class SelectGraphicArea extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         isTablet ? const SizedBox() : const SizedBox(height: 20),
-        const Text(
-          '位置調整',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        const Padding(
+          padding: EdgeInsets.only(left: 24.0),
+          child: Text(
+            '位置調整',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
         Slider(
           min: -1.0,
