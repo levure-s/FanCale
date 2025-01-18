@@ -27,6 +27,7 @@ class SelectGraphicArea extends StatelessWidget {
                 )
               : Column(children: [
                   _buildImageSection(context, model, isTablet),
+                  _buildSlider(model, isTablet),
                   _buildSaveButton(context, model)
                 ]),
         ),
@@ -51,13 +52,38 @@ class SelectGraphicArea extends StatelessWidget {
                 model.imageFile!,
                 fit: BoxFit.cover,
               )
-            : Container(
-                color: Colors.grey,
+            : Image.network(
+                model.graphic.imgURL,
+                fit: BoxFit.cover,
               ),
       ),
       onTap: () async {
         await model.pickImage();
       },
+    );
+  }
+
+  Widget _buildSlider(EditCalenderGraphicsModel model, bool isTablet) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        isTablet ? const SizedBox() : const SizedBox(height: 20),
+        const Text(
+          '位置調整',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        Slider(
+          min: -1.0,
+          max: 1.0,
+          value: 0,
+          onChanged: (newValue) {
+            // X軸の位置を更新
+            // model.updateAlignment(Alignment(newValue, _currentValueY));
+          },
+          activeColor: Colors.blue,
+          inactiveColor: Colors.grey,
+        ),
+      ],
     );
   }
 
