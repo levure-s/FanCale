@@ -13,6 +13,8 @@ class EditCalenderGraphicsModel extends ChangeNotifier {
   File? imageFile;
   bool isLoading = false;
   final picker = ImagePicker();
+  double imageAlignmentX = 0.0;
+  double imageAlignmentY = 0.0;
 
   void startLoading() {
     isLoading = true;
@@ -21,6 +23,16 @@ class EditCalenderGraphicsModel extends ChangeNotifier {
 
   void endLoading() {
     isLoading = false;
+    notifyListeners();
+  }
+
+  void updateAlignmentX(double value) {
+    imageAlignmentX = value;
+    notifyListeners();
+  }
+
+  void updateAlignmentY(double value) {
+    imageAlignmentY = value;
     notifyListeners();
   }
 
@@ -34,17 +46,20 @@ class EditCalenderGraphicsModel extends ChangeNotifier {
   }
 
   Future saveImage() async {
-    String? imgURL;
-    if (imageFile == null) {
-      throw '画像が選択されていません';
-    }
     final uid = FirebaseAuth.instance.currentUser?.uid ?? '';
     final doc =
         FirebaseFirestore.instance.collection('graphics').doc(graphic.id);
-    final task = await FirebaseStorage.instance
-        .ref('graphics/${doc.id}')
-        .putFile(imageFile!);
-    imgURL = await task.ref.getDownloadURL();
-    await doc.update({'imgURL': imgURL, 'uid': uid, 'month': graphic.month});
+    final data = {
+      'uid': uid,
+      'alignmentX': imageAlignmentX,
+      'alignmentY': imageAlignmentY,
+    };
+    if (imageFile != null) {
+      final task = await FirebaseStorage.instance
+          .ref('graphics/${doc.id}')
+          .putFile(imageFile!);
+      data['imgURL'] = await task.ref.getDownloadURL();
+    }
+    await doc.update(data);
   }
 }

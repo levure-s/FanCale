@@ -51,10 +51,14 @@ class SelectGraphicArea extends StatelessWidget {
             ? Image.file(
                 model.imageFile!,
                 fit: BoxFit.cover,
+                alignment:
+                    Alignment(model.imageAlignmentX, model.imageAlignmentY),
               )
             : Image.network(
                 model.graphic.imgURL,
                 fit: BoxFit.cover,
+                alignment:
+                    Alignment(model.imageAlignmentX, model.imageAlignmentY),
               ),
       ),
       onTap: () async {
@@ -75,10 +79,13 @@ class SelectGraphicArea extends StatelessWidget {
         Slider(
           min: -1.0,
           max: 1.0,
-          value: 0,
+          value: isTablet ? model.imageAlignmentX : model.imageAlignmentY,
           onChanged: (newValue) {
-            // X軸の位置を更新
-            // model.updateAlignment(Alignment(newValue, _currentValueY));
+            if (isTablet) {
+              model.updateAlignmentX(newValue);
+            } else {
+              model.updateAlignmentY(newValue);
+            }
           },
           activeColor: Colors.blue,
           inactiveColor: Colors.grey,
