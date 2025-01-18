@@ -8,13 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditCalenderGraphicsModel extends ChangeNotifier {
-  EditCalenderGraphicsModel({required this.graphic});
+  EditCalenderGraphicsModel({required this.graphic})
+      : imageAlignmentX = graphic.alignmentX, // graphicから初期化
+        imageAlignmentY = graphic.alignmentY;
   final Graphic graphic;
   File? imageFile;
   bool isLoading = false;
   final picker = ImagePicker();
-  double imageAlignmentX = 0.0;
-  double imageAlignmentY = 0.0;
+  double imageAlignmentX;
+  double imageAlignmentY;
 
   void startLoading() {
     isLoading = true;
