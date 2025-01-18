@@ -97,8 +97,6 @@ class SelectGraphicArea extends StatelessWidget {
               model.updateAlignmentY(newValue);
             }
           },
-          activeColor: Colors.blue,
-          inactiveColor: Colors.grey,
         ),
       ],
     );

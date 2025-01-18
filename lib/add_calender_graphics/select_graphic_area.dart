@@ -93,8 +93,6 @@ class SelectGraphicArea extends StatelessWidget {
               model.updateAlignmentY(newValue);
             }
           },
-          activeColor: Colors.blue,
-          inactiveColor: Colors.grey,
         ),
       ],
     );
@@ -114,7 +112,8 @@ class SelectGraphicArea extends StatelessWidget {
               await model.saveImage(month);
               isSuccess = true;
             } catch (e) {
-              final snackBar = SnackBar(content: Text(e.toString()));
+              final snackBar = SnackBar(
+                  backgroundColor: Colors.red, content: Text(e.toString()));
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             } finally {
               model.endLoading();
