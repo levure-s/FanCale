@@ -10,6 +10,8 @@ class AddCalenderGraphicsModel extends ChangeNotifier {
   File? imageFile;
   bool isLoading = false;
   final picker = ImagePicker();
+  double imageAlignmentX = 0.0;
+  double imageAlignmentY = 0.0;
 
   void startLoading() {
     isLoading = true;
@@ -18,6 +20,16 @@ class AddCalenderGraphicsModel extends ChangeNotifier {
 
   void endLoading() {
     isLoading = false;
+    notifyListeners();
+  }
+
+  void updateAlignmentX(double value) {
+    imageAlignmentX = value;
+    notifyListeners();
+  }
+
+  void updateAlignmentY(double value) {
+    imageAlignmentY = value;
     notifyListeners();
   }
 
@@ -41,6 +53,12 @@ class AddCalenderGraphicsModel extends ChangeNotifier {
         .ref('graphics/${doc.id}')
         .putFile(imageFile!);
     imgURL = await task.ref.getDownloadURL();
-    await doc.set({'imgURL': imgURL, 'uid': uid, 'month': month});
+    await doc.set({
+      'imgURL': imgURL,
+      'uid': uid,
+      'month': month,
+      'alignmentX': imageAlignmentX,
+      'alignmentY': imageAlignmentY,
+    });
   }
 }

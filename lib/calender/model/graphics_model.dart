@@ -41,10 +41,16 @@ class Graphics extends ChangeNotifier {
       currentGraphic = null;
       return notifyListeners();
     }
+    final doc = filtered.first.data() as Map<String, dynamic>;
+    final alignmentX = doc.containsKey('alignmentX') ? doc['alignmentX'] : 0.0;
+    final alignmentY = doc.containsKey('alignmentY') ? doc['alignmentY'] : 0.0;
     currentGraphic = Graphic(
-        id: filtered.first.id,
-        imgURL: filtered.first['imgURL'],
-        month: currentMonth);
+      id: filtered.first.id,
+      imgURL: filtered.first['imgURL'],
+      month: currentMonth,
+      alignmentX: alignmentX,
+      alignmentY: alignmentY,
+    );
     notifyListeners();
   }
 }

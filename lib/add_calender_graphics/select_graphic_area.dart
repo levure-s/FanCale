@@ -21,11 +21,19 @@ class SelectGraphicArea extends StatelessWidget {
                   children: [
                     Expanded(
                         child: _buildImageSection(context, model, isTablet)),
-                    Expanded(child: _buildSaveButton(context, model, month))
+                    Expanded(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildSlider(model, isTablet),
+                        _buildSaveButton(context, model, month),
+                      ],
+                    ))
                   ],
                 )
               : Column(children: [
                   _buildImageSection(context, model, isTablet),
+                  _buildSlider(model, isTablet),
                   _buildSaveButton(context, model, month)
                 ]),
         ),
@@ -49,6 +57,8 @@ class SelectGraphicArea extends StatelessWidget {
             ? Image.file(
                 model.imageFile!,
                 fit: BoxFit.cover,
+                alignment:
+                    Alignment(model.imageAlignmentX, model.imageAlignmentY),
               )
             : Container(
                 color: Colors.grey,
@@ -57,6 +67,34 @@ class SelectGraphicArea extends StatelessWidget {
       onTap: () async {
         await model.pickImage();
       },
+    );
+  }
+
+  Widget _buildSlider(AddCalenderGraphicsModel model, bool isTablet) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        isTablet ? const SizedBox() : const SizedBox(height: 20),
+        const Padding(
+          padding: EdgeInsets.only(left: 24.0),
+          child: Text(
+            '位置調整',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Slider(
+          min: -1.0,
+          max: 1.0,
+          value: isTablet ? model.imageAlignmentX : model.imageAlignmentY,
+          onChanged: (newValue) {
+            if (isTablet) {
+              model.updateAlignmentX(newValue);
+            } else {
+              model.updateAlignmentY(newValue);
+            }
+          },
+        ),
+      ],
     );
   }
 
